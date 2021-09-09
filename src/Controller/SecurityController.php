@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use Symfony\Component\Mime\NamedAddress;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
@@ -73,11 +74,13 @@ class SecurityController extends AbstractController
             $em->flush();
 
             $email = (new TemplatedEmail())
-                ->from("alienmailer@example.com")
-                ->to($user->getEmail())
+                ->from(new NamedAddress('alienmailer@example.com', 'The Space Bar'))
+                ->to(new NamedAddress($user->getEmail(), $user->getFirstName()))
                 ->subject('Welcome to the Space Bar!')
-                ->text("Nice to meet you {$user->getFirstName()}!")
-                ->html("<h1>Nice to meet you {$user->getFirstName()}!</h1>")
+                ->htmlTemplate('email/welcome.html.twig')
+                ->context([
+                    // 'user' => $user,
+                ])
             ;
 
             $mailer->send($email);
