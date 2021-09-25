@@ -22,6 +22,8 @@ Encore
     .addEntry('admin_article_form', './assets/js/admin_article_form.js')
     .addStyleEntry('account', './assets/css/account.scss')
     .addStyleEntry('login', './assets/css/login.scss')
+    .addStyleEntry('email', './assets/css/email.scss')
+
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 
@@ -47,7 +49,7 @@ Encore
     .enableVersioning(Encore.isProduction())
 
     // enables @babel/preset-env polyfills
-    .configureBabel(() => {}, {
+    .configureBabel(() => { }, {
         useBuiltIns: 'usage',
         corejs: 3
     })
@@ -74,6 +76,6 @@ Encore
     // uncomment if you use API Platform Admin (composer req api-admin)
     //.enableReactPreset()
     //.addEntry('admin', './assets/js/admin.js')
-;
+    ;
 
 module.exports = Encore.getWebpackConfig();
